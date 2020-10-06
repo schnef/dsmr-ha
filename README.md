@@ -74,6 +74,7 @@ handle one TCP connection, so this works only if HA isn't connected.
 
  * On booting and connecting to wifi, the HUZZAH's blue led will be on
    continiously.
+ * Also, the blue led is on during over-the-air updates.
  * The blue led flashes shortly with every telegram received from the
    P1 port.
  * The red led will be turned on when a TCP client,
