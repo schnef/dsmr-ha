@@ -9,8 +9,17 @@ required or special cable is needed. The ESP8266 runs a TCP server to
 which HomeAssistant connects to fetch the data, using the [DSMR
 platform](https://www.home-assistant.io/integrations/dsmr/).
 
-Tested with a Sagemcom T210-D and Adafruit HUZZAH module. This setup
-turned out to be very reliable.
+Tested with:
+
+ * Adafruit HUZZAH module
+ * Sagemcom T210-D: connected the P1 DATA pin directly with RX and
+   used one of the ESP8266's pins to switch data transmission on and
+   off by taking the DATA REQUEST line low and high.
+ * [Landis+Gyr E350 ZCF110CCtFs2](https://www.liander.nl/sites/default/files/Meters-Handleiding-Elektriciteit-LandisGyr-ZCF110CCtFs2.pdf):
+   a 1 KOhm pullup resistor to the 3.3V is required for the P1 DATA
+   line. The DATA REQUEST line should be tied to the 5V HUZZAG's power
+   supply permannently.
+
 
 ## Implementation ##
 
@@ -21,14 +30,19 @@ UART's receive pin, the input is inverted and can be used directly.
 
 The implementation was tested using a Adafruit HUZZAH ESP8266 board,
 powered using an old mobile phone charger, connected to a Sagemcom
-T210-D metering device with the UART RX pin connected to the P1's
-Data (pin #5), GND to Data GND (pin #3) and GPIO 04 connected to Data
-Request (pin #2). One can simply use an old fully wired (all four
-connections) RJ11 telephone wire for this. GPIO pin 4 is used to
-enable/disable sending by the P1 port by taking the Data Request line
-HIGH/LOW.  The Sagemcom T210-D uses protocol DSMR P1 version 5.0. With
-a properly wired RJ12 connector, one probably can even power the board
-from the P1 port as well and omit the external power supply.
+T210-D and L+G ZCF110CCtFs2 metering devices with the UART RX pin
+connected to the P1's Data (pin #5), GND to Data GND (pin #3) and GPIO
+04 connected to Data Request (pin #2). One can simply use an old fully
+wired (all four connections) RJ11 telephone wire for this. GPIO pin 4
+is used to enable/disable sending by the P1 port by taking the Data
+Request line HIGH/LOW.  The Sagemcom T210-D uses protocol DSMR P1
+version 5.0. With a properly wired RJ12 connector, one probably can
+even power the board from the P1 port as well and omit the external
+power supply.
+
+The older L+G ZCF110CCtFs2 requires a pullup resistor for the DATA
+line and the DATA REQUEST line should be tied to 5 Volts to make the
+device sending telegrams.
 
 The sketch implements two equivalant CRC checking functions, one using
 a lookup table and another one which processes the message
