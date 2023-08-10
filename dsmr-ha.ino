@@ -29,7 +29,7 @@
 #define STAPSK      "XXXX"
 #endif
 
-#define BUFSIZE     1280
+#define BUFSIZE     1600
 #define TLGSIZE     (BUFSIZE - 8)
 #define CRCSIZE     4
 

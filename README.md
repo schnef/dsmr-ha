@@ -95,7 +95,7 @@ handle one TCP connection, so this works only if HA isn't connected.
    i.e. HomeAssistant, is connected.
 
 ## Links ##
-
+ * [Adafruit HUZZAH ESP8266](https://www.adafruit.com/product/2471)
  * [Adafruit HUZZAH ESP8266](https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout/overview)
  * [Arduino core for ESP8266 WiFi chip](https://github.com/esp8266/Arduino#arduino-core-for-esp8266-wifi-chip)
  * [ESP8266 Arduino Core’s documentation](https://arduino-esp8266.readthedocs.io/en/latest/index.html)
