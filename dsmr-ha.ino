@@ -16,10 +16,10 @@
 #define U0C0        ESP8266_REG(0x020) //CONF0
 #define UCRXI       19 //Invert RX
 
-#define LED_RED     0
-#define LED_BLUE    2
+#define LED_RED     0 // D3 IO, 10k Pull-up
+#define LED_BLUE    2 // D4 IO, 10k Pull-up, BUILTIN_LED
 
-#define P1_DATA_REQ 4
+#define P1_DATA_REQ 4 // D2 IO, SDA
 #define BAUD_RATE   115200
 #define OFF         HIGH
 #define ON          LOW
@@ -58,11 +58,12 @@ void setup() {
   pinMode(P1_DATA_REQ, OUTPUT);
   digitalWrite(LED_RED, OFF);
   digitalWrite(LED_BLUE, ON);
-  digitalWrite(P1_DATA_REQ, LOW);
+  //digitalWrite(P1_DATA_REQ, LOW);
   
   // setup Serial. Invert receive (RX)
   Serial.begin(BAUD_RATE, SERIAL_8N1);
   U0C0 |= BIT(UCRXI); // Inverse RX
+  Serial.swap(); // use the alternative pins (Tx = GPIO15, Rx = GPIO13)
 
   // setup the Wifi
   WiFi.mode(WIFI_STA);
@@ -141,15 +142,19 @@ void loop() {
             client.print(buffer);
           } else {
             digitalWrite(LED_RED, OFF);  
-          }
+          } // client.connected
         } else {
-        }
+          Serial.println("\nCRC error");
+        } // crc1 == crc2
       } else {
-      }
+        Serial.println("\nTLG length error");
+      } // n < TLGSIZE
       digitalWrite(LED_BLUE, OFF);
-    }
-  }
-}
+    } else {
+      Serial.println("\nTLG start error");
+    } // c == '/'
+  } // serial available
+} // loop
 
 /*
  * Calculate crc16-ibm value. This version uses a lookup table,
