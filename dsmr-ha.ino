@@ -1,6 +1,7 @@
 // -*- mode: c++ -*-
 
 #include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
 #include <ESP8266mDNS.h>
 #include <ArduinoOTA.h>
 #include "credentials.h"
@@ -25,8 +26,8 @@
 #define ON          LOW
 
 #ifndef STASSID
-#define STASSID     "XXXX"
-#define STAPSK      "XXXX"
+#define STASSID     "Bosch en Duin gast"
+#define STAPSK      "Clubhuistvbd!"
 #endif
 
 #define BUFSIZE     1600
