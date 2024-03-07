@@ -1,7 +1,6 @@
 // -*- mode: c++ -*-
 
 #include <ESP8266WiFi.h>
-#include <ESP8266WiFiMulti.h>
 #include <ESP8266mDNS.h>
 #include <ArduinoOTA.h>
 #include "credentials.h"
@@ -63,8 +62,6 @@ void setup() {
   
   // setup Serial. Invert receive (RX)
   Serial.begin(BAUD_RATE, SERIAL_8N1);
-  U0C0 |= BIT(UCRXI); // Inverse RX
-  Serial.swap(); // use the alternative pins (Tx = GPIO15, Rx = GPIO13)
 
   // setup the Wifi
   WiFi.mode(WIFI_STA);
@@ -100,6 +97,11 @@ void setup() {
 
   //digitalWrite(LED_RED, ON);
   digitalWrite(LED_BLUE, OFF);
+
+  // Invert Rx and swap pins TX/RX to pins not connected to USB port
+  U0C0 |= BIT(UCRXI); // Inverse RX
+  Serial.swap(); // use the alternative pins (Tx = GPIO15, Rx = GPIO13)
+
 }
 
 // ============================ Loop ============================
